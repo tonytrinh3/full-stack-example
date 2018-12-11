@@ -24,6 +24,6 @@ app.get('/',(req,res) => {
 const PORT = process.env.PORT || 5000;
 
 //express telling node.js "hey watch for any traffic coming into port 5000" hi 
-app.listen(PORT);
+app.listen(5000);
 
 //http://localhost:5000/

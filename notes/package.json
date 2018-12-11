@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  //declare version haruku to use whenever haruku deploys our appliation 
+  "engines":{
+    "node":"8.x",
+    "npm":"5.x"
+  },
+  //instruct heroku what command to run to start our server running
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  //gitignore is for github to not upload all node_modules
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
