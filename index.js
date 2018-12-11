@@ -1,15 +1,15 @@
-const express = require ('express');
+const express = require('express');
 
 
 const app = express();
 
-app.get('/',(req,res) => {
-    res.send({hi:'theress'});
+app.get('/', (req, res) => {
+    res.send({ hi:'theress' });
 });
 
 
 const PORT = process.env.PORT || 5000;
 
 
-app.listen(5000);
+app.listen(PORT);
 
