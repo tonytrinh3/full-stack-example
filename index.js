@@ -1,18 +1,32 @@
 const express = require ('express');
 //require keyword to get express - used for node.js
 const mongoose = require ('mongoose');
+const cookieSession = require('cookie-session');
+//keep track of user session or user authentication state by using cookies
+const passport = require('passport');
 const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
-
-
-
 
 mongoose.connect(keys.mongoURI);
 
 const app = express();//this is exciting
 //calling express like a function that generates a new application that runs like an express app
 //most project will use one app
+
+app.use(
+    cookieSession({
+        maxAge: 30*24*60*60*1000,
+        //how long this cookie will last in browser
+        //want cookie to last for 30 days
+        //need to be passed in milliseconds
+        keys: [keys.cookieKey]
+    })
+)
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 const authRoutes = require ("./routes/authRoutes");
 authRoutes(app);

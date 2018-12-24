@@ -8,6 +8,20 @@ const User = mongoose.model('users');
 //one argument into mongoose means trying to fetch something
 //two argument into moongoose means we are trying to load something like "require()"
 
+//done is common in passport 
+//user.id is the user.id that is assigned to the google user in mongoDB (in mlab)
+//using this user.id is easier to homogenize different types of log in, either via fb, google, twitter, etc.
+passport.serializeUser((user,done) => {
+    done(null,user.id);
+});
+//taking id and put it into mongoose
+passport.deserializeUser((id,done)=>{
+    User.findById(id)
+        .then(user=>{
+            done(null,user);
+        })
+})
+
 passport.use(
     new GoogleStrategy(
         {
