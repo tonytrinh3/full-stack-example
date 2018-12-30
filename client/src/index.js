@@ -1,14 +1,20 @@
 //for redux side of things 
+//webpack assumes you are auto importing from node-modules so that is why you don't have ./ at the beginning 
+//can remove "materializeCSS from" bc you don't need to import a variable for css
+import 'materialize-css/dist/css/materialize.min.css';
 import React from 'react';  
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import { createStore, applyMiddleware} from 'redux';  
+import { createStore, applyMiddleware} from 'redux'; 
+import reduxThunk from "redux-thunk"; 
 
 import App from './components/App.js';
+import reducers from './reducers';
+
 //dummy reducer () => []
 //{} only for server side rendering
 //redux store
-const store = createStore( () => [], {}, applyMiddleware());
+const store = createStore( reducers, {}, applyMiddleware(reduxThunk));
 //hooked up redux in react via provider tag
 //provider tag is a react component that knows how to read changes from the redux store any times the redux store gets some new state produced inside of it 
 //the provider will inform all of its children components
