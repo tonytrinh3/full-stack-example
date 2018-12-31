@@ -7,11 +7,12 @@ import { FETCH_USER } from './types';
 //dispatch is a function
 //any action we throw into dispatch, those actions will get funnedled to the other reducers
 export const fetchUser = () => {
-    return function (dispatch) {
+//export const fetchUser = () => async dispatch => {
+    return async function (dispatch) {
     //we use relative path - we can use proxy in dev mode
-        axios
-            .get('/api/current_user')
+       const res = await axios.get('/api/current_user');
             //if "res" is true then. "res =>" is a function 
-            .then(res => dispatch({ type: FETCH_USER, payload: res}));
+            //   .then(res => dispatch({ type: FETCH_USER, payload: res}));
+        dispatch({ type: FETCH_USER, payload: res});
     };
 };
