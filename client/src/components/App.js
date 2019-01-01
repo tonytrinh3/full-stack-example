@@ -9,7 +9,9 @@ import React, {Component} from 'react';
 //browserrouter is the brains of react router - tells react router how to behave 
 //something that looks at the current url and changes the set of components that are visble on the screen at any given time
 //route component that is used to set up a rule between a certain route that the user might visit inside an application and a set of components that will be actually visible on screen
+//react router is used for different navigation in page
 import {BrowserRouter,Route} from 'react-router-dom';
+
 //redux is not meant to work with react so connect it together via react-redux
 //use connect function to give certain components the ability to call action creators 
 import {connect} from 'react-redux';
@@ -17,9 +19,10 @@ import * as actions from '../actions';
 
 //dummy components working with react router
 import Header from './Header';
+import Landing from './Landing';
 const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
-const Landing = () => <h2>Landing</h2>;
+
 
 
 
