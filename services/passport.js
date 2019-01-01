@@ -28,7 +28,8 @@ passport.use(
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
             //route user will be sent to after user grant permission to application
-            callbackURL: '/auth/google/callback'
+            callbackURL: '/auth/google/callback',
+            proxy: true //stating, fix google using http rather than https specify in google api. stating google, hey we are ok with running google through heroku proxy bc we trust heroku proxy. before, google didn't trust any proxy so that is why they put http. lect 50
         }, 
         async (accessToken, refreshToken, profile, done) => {
             console.log ('access token: ', accessToken);
