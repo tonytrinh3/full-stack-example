@@ -14,10 +14,15 @@ module.exports = (app) =>{
 
     //handle callback
     //when user hit this callback, we will have the scope code already and then google will handle this request differently
+    
     //google will not kick user back to oauth flow, it will exchange code for actual user profile
+    //middlewear
     app.get (
         '/auth/google/callback', 
-        passport.authenticate('google')
+        passport.authenticate('google'),
+        (req,res) =>{
+            res.redirect('/surveys');
+        }
     )
     //logout attached to request 
     //kills the coookie that is attached to the id 
@@ -26,7 +31,7 @@ module.exports = (app) =>{
     ///api/current_user will be blank too bc we logged out
     app.get('/api/logout', (req,res) => {
         req.logout();
-        res.send(req.user);
+        res.redirect('/');
     });
     //req is request, res is outgoing response
     

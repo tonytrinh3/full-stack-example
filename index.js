@@ -23,7 +23,7 @@ app.use(
         keys: [keys.cookieKey]
     })
 )
-
+//middlewear
 app.use(passport.initialize());
 app.use(passport.session());
 

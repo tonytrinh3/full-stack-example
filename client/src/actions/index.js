@@ -13,6 +13,6 @@ export const fetchUser = () => {
        const res = await axios.get('/api/current_user');
             //if "res" is true then. "res =>" is a function 
             //   .then(res => dispatch({ type: FETCH_USER, payload: res}));
-        dispatch({ type: FETCH_USER, payload: res});
+        dispatch({ type: FETCH_USER, payload: res.data});
     };
 };
