@@ -7,10 +7,11 @@ const { Schema } = mongoose;
 //called ES5 javascript de-structuring
 
 const userSchema = new Schema ({
-    googleId: String
+    googleId: String,
+    credits: { type: Number, default: 0 }
 });
 
-mongoose.model('users',userSchema);
+mongoose.model('users', userSchema);
 //using mongoose to create a new collection of users
-//mongoose won't overright existing collections, will just create new ones 
+//mongoose won't overwrite existing collections, will just create new ones 
 //our model class

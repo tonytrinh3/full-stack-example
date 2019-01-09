@@ -4,6 +4,7 @@ const mongoose = require ('mongoose');
 const cookieSession = require('cookie-session');
 //keep track of user session or user authentication state by using cookies
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
@@ -14,6 +15,10 @@ const app = express();//this is exciting
 //calling express like a function that generates a new application that runs like an express app
 //most project will use one app
 
+//any time a post request or a put request or a patch request or anything else that has a request body that comes into our application. this middleware will parse the body and assign it to the req.body property of the incoming request object 
+app.use(bodyParser.json());
+
+//middlewear that operate on the incoming request before they are sent off to our request handler
 app.use(
     cookieSession({
         maxAge: 30*24*60*60*1000,
@@ -30,7 +35,23 @@ app.use(passport.session());
 
 const authRoutes = require ("./routes/authRoutes");
 authRoutes(app);
+require('./routes/billingRoutes')(app);
 //or require ("./routes/authRoutes")(app);
+
+
+if (process.env.NODE_ENV === 'production'){
+    //Express will serve up production assets
+    //like our main.js file, or main.css file!
+    app.use(express.static('client/build'));
+
+    //Express will serve up the index.html file
+    //if it doesn't recognize the route 
+    //if user make request to route that code doesn't recognize, send to index.html
+    const path = require ('path');
+    app.get('*',(req,res) => {
+        res.sendFile(path.resolve(__dirname, 'client','build','index.html'))
+    });
+}
 
 
 //all caps to allow engineer to know that this const isn't to be changed lightly
