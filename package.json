@@ -23,6 +23,7 @@
     "express": "^4.16.4",
     "mongoose": "^5.4.0",
     "nodemon": "^1.18.9",
+    "npm": "^6.5.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "stripe": "^6.20.0"
