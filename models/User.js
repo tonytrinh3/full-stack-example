@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 //this says in mongoose, there is a property called schema. take that property and put it in to variable named schema. only works if property and new variable name is the same
 //that is why you need curly braces, in order to take the same name property of that library and put it around the new variable name 
 //called ES5 javascript de-structuring
-//this is test
+//this is test. some more test
 
 const userSchema = new Schema ({
     googleId: String,
