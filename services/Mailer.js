@@ -22,6 +22,35 @@ class Mailer extends helper.Mail {
         this.body = new helper.Content('text/html',content);
         this.recipients = this.formatAddresses(recipients);
 
+        this.addContent(this.body);
+        this.addClickTracking();
+        this.addRecipients();
+
+    }
+
+    formatAddresses(recipients){
+        //need parathesis around {} in order to do destructuring with an arrow function
+        return recipients.map( ({email}) => {
+            return new helper.Email(email);
+
+        })
+    }
+    // lec 133 - just write this code from sendgrid
+    addClickTracking(){
+        const trackingSettings = new helper.TrackingSettings();
+        const clickTracking = new helper.ClickTracking(true, true);
+
+        trackingSettings.setClickTracking(clickTracking);
+        this.addTrackingSettings(trackingSettings);
+    }
+
+    addRecipients(){
+        const personalize = new helper.Personalization();
+        this.recipients.forEach(recipients => {
+            personalize.addTo(recipient);
+        });
+        this.addPersonalization(personalize);
+
     }
 
 }
