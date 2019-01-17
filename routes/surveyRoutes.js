@@ -13,7 +13,7 @@ const Survey = mongoose.model('surveys');
 
 
 module.exports = app => {
-    app.post('/api/surveys',requireLogin, requireCredits, (req,res) => {
+    app.post('/api/surveys',requireLogin, requireCredits, async (req,res) => {
         //lec 123
         //design backend server assuming that we are goign to pass along these properties
         //we are going to make sure when we move back to the react redux side of the application, we will make sure that when we pass off these properties or when we create a new survey on the front end, we pass along all these different properties as well
@@ -43,7 +43,19 @@ module.exports = app => {
 
        //Great place to send an email
        const mailer = new Mailer(survey, surveyTemplate(survey));
-
+       
+       try {
+        //async function
+        await mailer.send();
+        await survey.save();
+        req.user.credits -= 1;
+        const user = await req.user.save();
+        //new value of credits
+        req.send(user);
+       } catch (err) {
+           //422 means something is wrong with data you sent to us
+           res.status(422).send(err);
+       };
 
     });
 };

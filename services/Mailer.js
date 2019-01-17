@@ -15,6 +15,8 @@ class Mailer extends helper.Mail {
     constructor({subject, recipients}, content){
         super();
 
+        //lec 135
+        this.sgApi = sendgrid(keys.sendGridKey);
         //who this email appears to be sent from
         //people using emaily service to send our survey
         this.from_email = new helper.Email('no-reply@emaily.com');
@@ -46,11 +48,24 @@ class Mailer extends helper.Mail {
 
     addRecipients(){
         const personalize = new helper.Personalization();
-        this.recipients.forEach(recipients => {
+        this.recipients.forEach(recipient => {
             personalize.addTo(recipient);
         });
         this.addPersonalization(personalize);
+    }
 
+    //lec 135
+    //toJSON() converts subject, recipients, body, from_email to JSON data and then take the entire thing and send it 
+    async send(){
+        const request = this.sgApi.emptyRequest({
+            method: 'POST',
+            path: '/v3/mail/send',
+            //toJSON() is defined by mail base class
+            body: this.toJSON()
+        });
+        //this sends to sendgrid
+        const response = await this.sgApi.API(request);
+        return response;
     }
 
 }

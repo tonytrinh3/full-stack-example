@@ -10,6 +10,11 @@ import reduxThunk from "redux-thunk";
 
 import App from './components/App.js';
 import reducers from './reducers';
+//lec 136
+//this is to test mailer, sendgrab
+import axios from 'axios';
+window.axios = axios;
+
 
 //dummy reducer () => []
 //{} only for server side rendering
