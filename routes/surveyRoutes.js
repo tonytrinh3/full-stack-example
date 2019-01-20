@@ -13,6 +13,12 @@ const Survey = mongoose.model('surveys');
 
 
 module.exports = app => {
+    //lect 140
+    app.get('/api/surveys/thanks', (req, res) => {
+        res.send('Thanks for voting');
+    });
+
+
     app.post("/api/surveys",requireLogin, requireCredits, async (req,res) => {
         //lec 123
         //design backend server assuming that we are goign to pass along these properties
