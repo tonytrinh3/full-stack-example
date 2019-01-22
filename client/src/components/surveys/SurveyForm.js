@@ -6,10 +6,11 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import {Link} from 'react-router-dom';
 import SurveyField from './SurveyField';
+import validateEmails from '../../utils/validateEmails';
 
 //lec 152
 const FIELDS = [
-    {label: "Survey Title",name: "title" },
+    {label: "Survey Title", name: "title" },
     {label: "Survey Line", name: "subject"},
     {label: "Email Body", name: "body" },
     {label: "Recipient List", name: "emails" }
@@ -62,12 +63,42 @@ class SurveyForm extends Component{
                     </button>
                 </form>
             </div>
-
         );
     }
-};
+}
+
+//lec 154
+function validate(values) {
+    //define errors
+    const errors = {};
+
+    //errors only care about properties that have a value assigned to it
+    //need empty string to go through split
+    errors.emails = validateEmails (values.emails || '');
+
+    //if values that you pass, if that title doesnt exist, then error's title state that quote
+    //redux form automatically matches up the errors you are passing here with the Fields you are passing in <Fields />
+    //if (!values.title) {
+    //    errors.title = 'You must provide a title';
+    //}
+    //can also use forEach()
+    //or {name} is es6
+    _.each(FIELDS, (field) =>{
+        //values[name] is to reference a property on an object on the fly or figure out property name at runtime
+        if (!values[field.name]){
+            errors[field.name]= 'You must provide a value';
+        }
+    });
+
+    return errors;
+}
+
+
 
 //allow SurveyForm to communicate with redux store
+//used to validate email
+//or es6 validate,
 export default reduxForm({
+    validate:validate,
     form: 'surveyForm'
 }) (SurveyForm);
