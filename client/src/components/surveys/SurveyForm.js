@@ -48,11 +48,33 @@ class SurveyForm extends Component{
                 {/* Field is going to take the value out of that input like that value we are typing in and it is going to automatially store it inside of our redux store under a key of "surveyTitle" and we'll see that in practice 
                 component input tells the field i want this to appear as an HTML input tag like just a normal input tag like that
                 <Field type = 'text' name = "title" component = "input"/>
-                handleSubmit is provided by reduxForm
+                ***handleSubmit is provided by reduxForm
                 our arrow function will be called automatically whenever a user submit a form
+
+                values => console.log(values)
+
+                () => this.props.onSurveySubmit()
+                this is an arrow function calling a function
+                you can also think that you are passing the () onward to this.props.onSurveySubmit in order to work
+
+                this.props.handleSubmit(() => )
+                we are passing an arrow function to handleSubmit
+
+                this.props.onSurveySubmit()  --> this.props.onSurveySubmit
+                removed the () at the end so we aren't calling this.props.onSurveySubmit as a function anymore, we are not invoking onSurveySubmit
+                    
+                if we put the set of paratheses at the end of onSurveySubmit, that callback function (onSurveySubmit) will be called the instant that our javascript interpreter evaluate the line of code:
+                <form onSubmit = {this.props.handleSubmit( () => this.props.onSurveySubmit )}>
+
+                and we don't want that to happen. 
+                we want to only call this.props.onSurveySubmit function after the user has submitted or attempt to submit the form
+                and so that is why we are not placing the parathesesat the very end of onSurveySubmit because we don't want to call the function instantly the second onSurveySubmit is rendered
+
+                we want to wait to call on onSurveySubmit until whenever the user actually attempts to submit the form
+
                 */}
                 <form 
-                onSubmit = {this.props.handleSubmit(values => console.log(values))}>
+                onSubmit = {this.props.handleSubmit( () => this.props.onSurveySubmit() )}>
                     {this.renderFields()}
                     <Link to="/surveys" className= "red btn-flat white-text">
                         Cancel
