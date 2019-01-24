@@ -7,14 +7,15 @@ import { reduxForm, Field } from 'redux-form';
 import {Link} from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
+import formFields from './formFields';
 
 //lec 152
-const FIELDS = [
-    {label: "Survey Title", name: "title" },
-    {label: "Survey Line", name: "subject"},
-    {label: "Email Body", name: "body" },
-    {label: "Recipient List", name: "emails" }
-];
+//const FIELDS = [
+//    {label: "Survey Title", name: "title" },
+//    {label: "Survey Line", name: "subject"},
+//    {label: "Email Body", name: "body" },
+//    {label: "Recipient List", name: "emails" }
+//];
 
 
 
@@ -24,7 +25,7 @@ class SurveyForm extends Component{
     //lect 149
     renderFields(){
         //map function from lodash
-        return _.map(FIELDS, field =>{
+        return _.map(formFields, field =>{
             //key property needs to be unique 
             return <Field key = {field.name} component = {SurveyField} type = "text" label = {field.label} name = {field.name} />
         });
@@ -105,7 +106,7 @@ function validate(values) {
     //}
     //can also use forEach()
     //or {name} is es6
-    _.each(FIELDS, (field) =>{
+    _.each(formFields, (field) =>{
         //values[name] is to reference a property on an object on the fly or figure out property name at runtime
         if (!values[field.name]){
             errors[field.name]= 'You must provide a value';
