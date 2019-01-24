@@ -1,5 +1,6 @@
 //SurveyFormReview shows users their form inputs for review
 import React from 'react';
+import { connect } from 'react-redux';
 
 //onCancel is prop that is being passed through SurveyNew
 const SurveyFormReview = ({ onCancel}) => {
@@ -15,4 +16,11 @@ const SurveyFormReview = ({ onCancel}) => {
     );
 };
 
-export default SurveyFormReview;
+
+//lec 162
+function mapStateToProps(state){
+    console.log(state);
+    return {formValues: state.form.surveyForm.values};
+}
+
+export default connect(mapStateToProps)(SurveyFormReview);

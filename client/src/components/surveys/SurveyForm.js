@@ -120,7 +120,11 @@ function validate(values) {
 //allow SurveyForm to communicate with redux store
 //used to validate email
 //or es6 validate,
+//lec 162 - destroyOnUnmount - unload all data from previous screen when you unrender the screen and render a new screen. 
+//makes sense when you are making forms and you want to go back to clean form
+//but you want to preserve the information, you tell redux to not destroyOnUnmount
 export default reduxForm({
     validate:validate,
-    form: 'surveyForm'
+    form: 'surveyForm',
+    destroyOnUnmount: false
 }) (SurveyForm);
