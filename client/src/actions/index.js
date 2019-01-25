@@ -25,3 +25,13 @@ export const handleToken = (token) => async dispatch => {
     //get same user model as above, dispatch same action type to update the user model inside our auth reducer
     dispatch({ type: FETCH_USER, payload: res.data});
 } 
+
+//lec 165, 168
+export const submitSurvey = (values, history) => async dispatch => {
+    const res = await axios.post('/api/surveys',values);
+    //lec 169
+    history.push('/surveys');
+
+    dispatch ({type: FETCH_USER, payload: res.data});
+
+}

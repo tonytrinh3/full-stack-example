@@ -97,7 +97,7 @@ function validate(values) {
 
     //errors only care about properties that have a value assigned to it
     //need empty string to go through split
-    errors.emails = validateEmails (values.emails || '');
+    errors.recipients = validateEmails (values.recipients || '');
 
     //if values that you pass, if that title doesnt exist, then error's title state that quote
     //redux form automatically matches up the errors you are passing here with the Fields you are passing in <Fields />
