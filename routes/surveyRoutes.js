@@ -13,7 +13,7 @@ const Survey = mongoose.model('surveys');
 
 
 module.exports = app => {
-    //lect 140wef
+    //lect 140wefaa
     app.get('/api/surveys/thanks', (req, res) => {
         res.send('Thanks for voting');
     });
