@@ -18,6 +18,12 @@ module.exports = app => {
         res.send('Thanks for voting');
     });
 
+    //lec 173
+    app.post('/api/surveys/webhooks', (req, res) => {
+        console.log(req.body);
+        res.send({});
+    })
+
 
     app.post("/api/surveys",requireLogin, requireCredits, async (req,res) => {
         //lec 123
