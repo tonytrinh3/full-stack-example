@@ -1,3 +1,9 @@
+//lec 179
+const _ = require('lodash');
+const Path = require ('path-parser');
+//url is default in node.js, can help parse url
+const { URL } = require ('url');
+
 const mongoose = require ('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
@@ -21,8 +27,11 @@ module.exports = app => {
     //lec 173
     app.post('/api/surveys/webhooks', (req, res) => {
         console.log(req.body);
+        const events = _.map(req.body, (event) =>{
+            const pathname = new URL(event.url).pathname;
+        });
         res.send({});
-    })
+    });
 
 
     app.post("/api/surveys",requireLogin, requireCredits, async (req,res) => {
