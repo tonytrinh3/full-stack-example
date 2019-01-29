@@ -1,6 +1,7 @@
 //lec 179
 const _ = require('lodash');
-const Path = require ('path-parser');
+//lec 180 errors
+const Path = require ('path-parser').default;
 //url is default in node.js, can help parse url
 const { URL } = require ('url');
 
@@ -25,12 +26,14 @@ module.exports = app => {
     });
 
     //lec 173
+    //this is to extract yes or no choices from email in order to record the answers bitches
     app.post('/api/surveys/webhooks', (req, res) => {
-        console.log(req.body);
+        //console.log(req.body);
         const events = _.map(req.body, (event) =>{
             const pathname = new URL(event.url).pathname;
+            const p = new Path('/api/surveys/:surveyId/:choice');
+            console.log(p.test(pathname));
         });
-        res.send({});
     });
 
 
