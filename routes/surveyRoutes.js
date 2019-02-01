@@ -28,17 +28,37 @@ module.exports = app => {
     //lec 173
     //this is to extract yes or no choices from email in order to record the answers bitches
     app.post('/api/surveys/webhooks', (req, res) => {
-        //console.log(req.body);
-        //or pass {email, url} to clean up
-        const events = _.map(req.body, (event) =>{
-            const pathname = new URL(event.url).pathname;
-            const p = new Path('/api/surveys/:surveyId/:choice');
-           const match = p.test(pathname);
-           if (match) {
-               return { email: event.email, surveyId: match.surveyId, choice: match.choice  };
-           }
-        });
+        // //console.log(req.body);
+        // //or pass {email, url} to clean up
+        // //lec 181
+        // const events = _.map(req.body, (event) =>{
+        //     const pathname = new URL(event.url).pathname;
+        //     const p = new Path('/api/surveys/:surveyId/:choice');
+        //    const match = p.test(pathname);
+        //    if (match) {
+        //        return { email: event.email, surveyId: match.surveyId, choice: match.choice  };
+        //    }
+        // });
+        // //lec 182 this is for to get unique survey 
+        // const compactEvents = _.compact(events);
+        // const uniqueEvents = _.uniqBy(compactEvents, 'email','surveyId');
+
+        //lec 183 lodash chain helper
+        const p = new Path('/api/surveys/:surveyId/:choice');
+        const events = _.chain(req.body)
+        .map (({email,url}) => {
+            const match = p.test(new URL(url).pathname);
+            if (match){
+                return { email, surveyId: match.surveyId, choice: match.choice };
+            }
+        })
+        .compact()
+        .uniqBy('email','surveyId')
+        .value();
+
         console.log(events);
+
+        res.send({});
 
     });
 
