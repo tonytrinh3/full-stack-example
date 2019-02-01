@@ -29,11 +29,17 @@ module.exports = app => {
     //this is to extract yes or no choices from email in order to record the answers bitches
     app.post('/api/surveys/webhooks', (req, res) => {
         //console.log(req.body);
+        //or pass {email, url} to clean up
         const events = _.map(req.body, (event) =>{
             const pathname = new URL(event.url).pathname;
             const p = new Path('/api/surveys/:surveyId/:choice');
-            console.log(p.test(pathname));
+           const match = p.test(pathname);
+           if (match) {
+               return { email: event.email, surveyId: match.surveyId, choice: match.choice  };
+           }
         });
+        console.log(events);
+
     });
 
 
