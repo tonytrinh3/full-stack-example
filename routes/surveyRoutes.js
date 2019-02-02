@@ -1,7 +1,7 @@
 //lec 179
 const _ = require('lodash');
 //lec 180 errors
-const Path = require ('path-parser').default;
+const { Path } = require ('path-parser');
 //url is default in node.js, can help parse url
 const { URL } = require ('url');
 
@@ -45,8 +45,9 @@ module.exports = app => {
 
         //lec 183 lodash chain helper
         const p = new Path('/api/surveys/:surveyId/:choice');
-        const events = _.chain(req.body)
-        .map (({email,url}) => {
+        //const events = 
+        _.chain(req.body)
+        .map(({ email, url }) => {
             const match = p.test(new URL(url).pathname);
             if (match){
                 return { email, surveyId: match.surveyId, choice: match.choice };
@@ -54,9 +55,25 @@ module.exports = app => {
         })
         .compact()
         .uniqBy('email','surveyId')
+        //lec 187
+        .each( ({ surveyId, email, choice }) => {
+            Survey.updateOne(
+                {
+                    _id: surveyId,
+                    recipients: {
+                    $elemMatch: { email: email, responded: false}
+                    }
+
+                }, 
+                {
+                $inc: { [choice]: 1 },
+                $set: { 'recipients.$.responded': true}
+                }
+            ).exec();
+        })
         .value();
 
-        console.log(events);
+        //console.log(events);
 
         res.send({});
 
