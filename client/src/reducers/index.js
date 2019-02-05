@@ -6,10 +6,12 @@ import { combineReducers } from 'redux';
 //lec 146
 import {reducer as reduxForm } from 'redux-form';
 import authReducer from './authReducer';
+import surveysReducer from './surveysReducer';
 
 //the object that is passing into the combineReducers, whatever keys we provide to this object are going to represent the keys that exist inside of our state object 
 export default combineReducers({
     //auth piece of state is produced by authReducer
     auth: authReducer,
-    form: reduxForm
+    form: reduxForm,
+    surveys: surveysReducer
 });

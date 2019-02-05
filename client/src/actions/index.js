@@ -1,7 +1,7 @@
 //we use axios to make ajax request
 
 import axios from "axios";
-import { FETCH_USER } from './types';
+import { FETCH_USER, FETCH_SURVEYS } from './types';
 
 //use axios bc we want a get request to our backend
 //dispatch is a function
@@ -35,3 +35,9 @@ export const submitSurvey = (values, history) => async dispatch => {
     dispatch ({type: FETCH_USER, payload: res.data});
 
 }
+
+export const fetchSurveys = () => async dispatch => {
+    const res = await axios.get('/api/surveys');
+    //res.data is array of surveys we got back from res
+    dispatch ({ type: FETCH_SURVEYS, payload:res.data})
+};
