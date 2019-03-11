@@ -6,6 +6,7 @@ import SurveyList from './surveys/SurveyList';
 const Dashboard = () =>{
     return(
         <div>
+            {/*<SurveyList />*/}
             <SurveyList />
             <div className ="fixed-action-btn">
             {/* lec 143 link back to app.js, route component*/}
